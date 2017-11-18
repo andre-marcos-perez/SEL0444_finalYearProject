@@ -8,7 +8,7 @@
 %  Semester: 2017\02
 %--------------------------------------------------------------------------
 % @DEVELOPMENT
-%  IDE: MATLAB R2013a
+%  IDE: MATLAB R2017a
 %--------------------------------------------------------------------------
 % @WARRANTY
 %  Copyright (c) 2017 Andre Marcos Perez
@@ -70,13 +70,13 @@ for i=1:2
     image = imread(INP_FILENAME);
     image = rgb2hsv(image);
     image = image(:,:,2);
-    
+       
     %----------------------------------------------------------------------
     % 1.2 - Segmentation: Igray(x,y) -> Ibinary(x,y)
     %----------------------------------------------------------------------
 
     T = graythresh(image);
-    image = im2bw(image, T);
+    image = imbinarize(image, T);
 
     %----------------------------------------------------------------------
     % 1.3 - Filtering: Ibinary(x,y) -> Ibinary(x,y)
@@ -85,12 +85,11 @@ for i=1:2
     SE = strel('disk',6);
     image = imopen(image,SE);
     image = imclose(image,SE);
-    
+        
     %----------------------------------------------------------------------
     % Print
     %----------------------------------------------------------------------
     
-    figure, imshow(image,'InitialMagnification','fit'); 
     dlmwrite(OUT_FILENAME,image);
     
 end
